@@ -1,5 +1,6 @@
 SampleApp2::Application.routes.draw do
   resources :users #creates all the named paths for the users object
+  resources :sessions, only: [ :new, :create, :destroy ]
 
   root to: 'static_pages#home'
 
@@ -8,8 +9,10 @@ SampleApp2::Application.routes.draw do
   match '/contact', to: 'static_pages#contact' 
 
   match '/signup', to: 'users#new'
+  match '/signin', to: 'sessions#new'
 
-
+  #via delete indicates it should be invoked with an HTTP DELETE request
+  match 'signout', to: 'sessions#destroy', via: :delete
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
